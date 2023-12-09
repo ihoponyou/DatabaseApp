@@ -34,15 +34,16 @@
             button4 = new Button();
             library1 = new DatabaseApp.pages.Library();
             store1 = new DatabaseApp.pages.Store();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
+            passwordTextBox = new TextBox();
+            usernameTextBox = new TextBox();
             label1 = new Label();
             label2 = new Label();
+            loginBtn = new Button();
             SuspendLayout();
             // 
             // storeBtn
             // 
-            storeBtn.Location = new Point(70, 12);
+            storeBtn.Location = new Point(70, 11);
             storeBtn.Name = "storeBtn";
             storeBtn.Size = new Size(75, 23);
             storeBtn.TabIndex = 0;
@@ -52,7 +53,7 @@
             // 
             // libraryBtn
             // 
-            libraryBtn.Location = new Point(151, 12);
+            libraryBtn.Location = new Point(151, 11);
             libraryBtn.Name = "libraryBtn";
             libraryBtn.Size = new Size(75, 23);
             libraryBtn.TabIndex = 1;
@@ -71,7 +72,7 @@
             // 
             // button4
             // 
-            button4.Location = new Point(41, 12);
+            button4.Location = new Point(41, 11);
             button4.Name = "button4";
             button4.Size = new Size(23, 23);
             button4.TabIndex = 3;
@@ -95,24 +96,24 @@
             store1.Size = new Size(778, 397);
             store1.TabIndex = 5;
             // 
-            // textBox1
+            // passwordTextBox
             // 
-            textBox1.Location = new Point(688, 12);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 6;
+            passwordTextBox.Location = new Point(628, 11);
+            passwordTextBox.Name = "passwordTextBox";
+            passwordTextBox.Size = new Size(100, 23);
+            passwordTextBox.TabIndex = 6;
             // 
-            // textBox2
+            // usernameTextBox
             // 
-            textBox2.Location = new Point(519, 12);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(100, 23);
-            textBox2.TabIndex = 7;
+            usernameTextBox.Location = new Point(456, 11);
+            usernameTextBox.Name = "usernameTextBox";
+            usernameTextBox.Size = new Size(100, 23);
+            usernameTextBox.TabIndex = 7;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(450, 15);
+            label1.Location = new Point(387, 14);
             label1.Name = "label1";
             label1.Size = new Size(63, 15);
             label1.TabIndex = 8;
@@ -121,21 +122,32 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(625, 15);
+            label2.Location = new Point(562, 15);
             label2.Name = "label2";
             label2.Size = new Size(60, 15);
             label2.TabIndex = 9;
             label2.Text = "Password:";
+            // 
+            // loginBtn
+            // 
+            loginBtn.Location = new Point(734, 11);
+            loginBtn.Name = "loginBtn";
+            loginBtn.Size = new Size(54, 23);
+            loginBtn.TabIndex = 10;
+            loginBtn.Text = "Login";
+            loginBtn.UseVisualStyleBackColor = true;
+            loginBtn.Click += loginBtn_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(loginBtn);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            Controls.Add(usernameTextBox);
+            Controls.Add(passwordTextBox);
             Controls.Add(store1);
             Controls.Add(library1);
             Controls.Add(button4);
@@ -157,9 +169,10 @@
         private Button button4;
         private DatabaseApp.pages.Library library1;
         private DatabaseApp.pages.Store store1;
-        private TextBox textBox1;
-        private TextBox textBox2;
+        private TextBox passwordTextBox;
+        private TextBox usernameTextBox;
         private Label label1;
         private Label label2;
+        private Button loginBtn;
     }
 }

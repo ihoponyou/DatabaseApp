@@ -8,10 +8,27 @@ using Npgsql;
 
 namespace DatabaseApp
 {
+    // database manager singleton using the 4th version of this singleton pattern
+    // https://csharpindepth.com/articles/singleton
     internal class DatabaseManager
     {
+        private static readonly DatabaseManager instance = new DatabaseManager();
+
         private string connString = "Host=localhost;Username=postgres;Password=s$cret;Database=assignment6";
         private NpgsqlConnection? _connection;
+
+        static DatabaseManager()
+        { 
+        }
+
+        private DatabaseManager()
+        {
+        }
+
+        public static DatabaseManager Instance
+        {
+            get => instance;
+        }
 
         private void setConnection()
         {
