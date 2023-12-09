@@ -11,7 +11,7 @@ namespace DatabaseApp
     internal class DatabaseManager
     {
         private string connString = "Host=localhost;Username=postgres;Password=s$cret;Database=assignment6";
-        private NpgsqlConnection? connection;
+        private NpgsqlConnection? _connection;
 
         private void setConnection()
         {
@@ -37,24 +37,24 @@ namespace DatabaseApp
 
         private NpgsqlConnection getConnection()
         {
-            if (connection == null)
+            if (_connection == null)
             {
                 setConnection();
             }
-            return connection;
+            return _connection;
         }
 
         private void closeConnection()
         {
-            if (connection == null) return;
-            connection.Close();
+            if (_connection == null) return;
+            _connection.Close();
         }
 
         public NpgsqlDataReader? Query(string query)
         {
             try
             {
-                using var cmd = new NpgsqlCommand(query, connection);
+                using var cmd = new NpgsqlCommand(query, _connection);
                 
                 return cmd.ExecuteReader();
             }
