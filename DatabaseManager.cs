@@ -49,5 +49,20 @@ namespace DatabaseApp
             if (connection == null) return;
             connection.Close();
         }
+
+        public NpgsqlDataReader? Query(string query)
+        {
+            try
+            {
+                using var cmd = new NpgsqlCommand(query, connection);
+                
+                return cmd.ExecuteReader();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Oops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+        }
     }
 }
