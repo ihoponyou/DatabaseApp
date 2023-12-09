@@ -8,6 +8,7 @@ namespace MagcalasCullen_CSCI366_GroupProject
     public partial class Form1 : Form
     {
         public int CurrentUserID { get; private set; }
+        private DatabaseManager dbm;
 
         public Form1()
         {
@@ -31,6 +32,7 @@ namespace MagcalasCullen_CSCI366_GroupProject
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            dbm = new DatabaseManager();
             store1.Show();
             library1.Hide();
         }
@@ -47,12 +49,17 @@ namespace MagcalasCullen_CSCI366_GroupProject
             string password = passwordTextBox.Text;
 
             // validate input = no sql injection!
-            if (!(isAlphaNumeric(username) || isAlphaNumeric(password)))
+            bool bothAlphaNumeric = isAlphaNumeric(username) && isAlphaNumeric(password);
+            bool bothNonEmpty = !(string.IsNullOrEmpty(username) && string.IsNullOrEmpty(password));
+            if (!bothAlphaNumeric || !bothNonEmpty)
                 return;
 
-            NpgsqlDataReader? results = DatabaseManager.Instance.Query(
-                $"SELECT customer_id FROM customer" +
-                $"WHERE customer_username = {username} AND customer_password = {password}");
+            var results = dbm.Query($"SELECT customer_id FROM customer " +
+                $"WHERE customer_username = '{username}' AND customer_password = '{password}'");
+
+            //NpgsqlDataReader? results = DatabaseManager.Instance.Query(
+            //    $"SELECT customer_id FROM customer" +
+            //    $"WHERE customer_username = {username} AND customer_password = {password}");
 
             if (results == null)
                 return;

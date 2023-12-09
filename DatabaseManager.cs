@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,76 +9,84 @@ using Npgsql;
 
 namespace DatabaseApp
 {
-    // database manager singleton using the 4th version of this singleton pattern
-    // https://csharpindepth.com/articles/singleton
     internal class DatabaseManager
     {
-        private static readonly DatabaseManager instance = new DatabaseManager();
+        private string connString = "Host=localhost;Username=postgres;Password=s$cret;Database=366-final";
 
-        private string connString = "Host=localhost;Username=postgres;Password=s$cret;Database=assignment6";
-        private NpgsqlConnection? _connection;
-
-        static DatabaseManager()
-        { 
-        }
-
-        private DatabaseManager()
+        public DatabaseManager()
         {
-        }
-
-        public static DatabaseManager Instance
-        {
-            get => instance;
         }
 
         private void setConnection()
         {
             try
             {
-                var cs = "Host=localhost;Username=postgres;Password=s$cret;Database=testdb";
-
-                using var con = new NpgsqlConnection(cs);
+                using var con = new NpgsqlConnection(connString);
                 con.Open();
 
                 var sql = "SELECT version()";
 
                 using var cmd = new NpgsqlCommand(sql, con);
 
-                var version = cmd.ExecuteScalar().ToString();
+                var version = cmd.ExecuteScalar();
                 Console.WriteLine($"PostgreSQL version: {version}");
+
+                //_connection = con;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Oops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Database Manager: Setting Connection", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private NpgsqlConnection getConnection()
+        public NpgsqlConnection? getConnection()
         {
-            if (_connection == null)
+            //if (_connection == null)
+            //{
+            //    setConnection();
+            //}
+            //return _connection;
+            try
             {
-                setConnection();
+                using var con = new NpgsqlConnection(connString);
+                con.Open();
+
+                var sql = "SELECT version()";
+
+                using var cmd = new NpgsqlCommand(sql, con);
+
+                var version = cmd.ExecuteScalar();
+                Console.WriteLine($"PostgreSQL version: {version}");
+
+                return con;
             }
-            return _connection;
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Database Manager: Getting Connection", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
         }
 
-        private void closeConnection()
-        {
-            if (_connection == null) return;
-            _connection.Close();
-        }
+        //private void closeConnection()
+        //{
+        //    if (_connection == null) return;
+        //    _connection.Close();
+        //}
 
         public NpgsqlDataReader? Query(string query)
         {
             try
             {
-                using var cmd = new NpgsqlCommand(query, _connection);
-                
-                return cmd.ExecuteReader();
+                NpgsqlConnection conn = new NpgsqlConnection(connString);
+                conn.Open();
+
+                NpgsqlCommand command = new NpgsqlCommand(query, conn);
+
+                return command.ExecuteReader();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Oops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Database Manager: Query", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
         }
