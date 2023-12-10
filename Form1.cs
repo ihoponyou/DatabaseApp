@@ -7,72 +7,67 @@ namespace MagcalasCullen_CSCI366_GroupProject
 {
     public partial class Form1 : Form
     {
-        public int CurrentUserID { get; private set; }
+        public DatabaseApp.User? CurrentUser { get; private set; }
         private DatabaseManager dbm;
+        private UserControl? activePage;
 
         public Form1()
         {
-            CurrentUserID = -1;
+            dbm = new DatabaseManager();
             InitializeComponent();
         }
 
         private void storeBtn_Click(object sender, EventArgs e)
         {
+            activePage = store1;
             library1.Hide();
+
             store1.Show();
-            //store1.BringToFront();
         }
 
         private void libraryBtn_Click(object sender, EventArgs e)
         {
+            if (CurrentUser == null)
+            {
+                return;
+            }
+
+            activePage = library1;
             store1.Hide();
             library1.Show();
-            //library1.BringToFront();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            dbm = new DatabaseManager();
-            store1.Show();
+            logoutButton.Hide();
             library1.Hide();
-        }
 
-        private bool isAlphaNumeric(string str)
-        {
-            Regex re = new Regex("^[a-zA-Z0-9]*$");
-            return re.IsMatch(str);
-        }
-
-        private void Login()
-        {
-            string username = usernameTextBox.Text;
-            string password = passwordTextBox.Text;
-
-            // validate input = no sql injection!
-            bool bothAlphaNumeric = isAlphaNumeric(username) && isAlphaNumeric(password);
-            bool bothNonEmpty = !(string.IsNullOrEmpty(username) && string.IsNullOrEmpty(password));
-            if (!bothAlphaNumeric || !bothNonEmpty)
-                return;
-
-            var results = dbm.Query($"SELECT customer_id FROM customer " +
-                $"WHERE customer_username = '{username}' AND customer_password = '{password}'");
-
-            //NpgsqlDataReader? results = DatabaseManager.Instance.Query(
-            //    $"SELECT customer_id FROM customer" +
-            //    $"WHERE customer_username = {username} AND customer_password = {password}");
-
-            if (results == null)
-                return;
-
-            while (results.Read())
-            {
-                this.Text = results[0].ToString();
-            }
+            activePage = store1;
+            store1.Show();
         }
 
         private void loginBtn_Click(object sender, EventArgs e)
         {
-            Login();
+            using Login loginForm = new Login();
+
+            if (loginForm.ShowDialog() != DialogResult.OK)
+                return;
+
+            CurrentUser = loginForm.CurrentUser;
+
+            loginButton.Hide();
+            logoutButton.Show();
+
+        }
+
+        private void logoutButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentUser == null)
+                return;
+
+            CurrentUser = null;
+            loginButton.Show();
+            logoutButton.Hide();
         }
     }
 }

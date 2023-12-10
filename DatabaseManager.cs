@@ -75,7 +75,7 @@ namespace DatabaseApp
 
         public NpgsqlDataReader? Query(string query)
         {
-            try
+            try 
             {
                 NpgsqlConnection conn = new NpgsqlConnection(connString);
                 conn.Open();
