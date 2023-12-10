@@ -1,6 +1,6 @@
 ﻿namespace MagcalasCullen_CSCI366_GroupProject
 {
-    partial class Form1
+    partial class Main
     {
         /// <summary>
         ///  Required designer variable.

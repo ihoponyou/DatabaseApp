@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DatabaseApp
+namespace DatabaseApp.pages
 {
     internal interface IPage
     {

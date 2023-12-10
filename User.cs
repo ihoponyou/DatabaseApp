@@ -12,6 +12,7 @@ namespace DatabaseApp
         public string Username { get; set; }
         public int UserID { get; set; }
         public int[] OwnedGames { get; set; }
+        public bool IsAdmin { get => UserID == -1; }
 
         public User(int userID, string username, int[] ownedGames)
         {

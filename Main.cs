@@ -5,16 +5,17 @@ using System.Text.RegularExpressions;
 
 namespace MagcalasCullen_CSCI366_GroupProject
 {
-    public partial class Form1 : Form
+    public partial class Main : Form
     {
         public DatabaseApp.User? CurrentUser { get; private set; }
         private DatabaseManager dbm;
         private UserControl? activePage;
 
-        public Form1()
+        public Main()
         {
             dbm = new DatabaseManager();
             InitializeComponent();
+            Text = "Online Game Store";
         }
 
         private void storeBtn_Click(object sender, EventArgs e)
@@ -53,7 +54,9 @@ namespace MagcalasCullen_CSCI366_GroupProject
             if (loginForm.ShowDialog() != DialogResult.OK)
                 return;
 
+            // will always be non-null because the dialogresult is OK
             CurrentUser = loginForm.CurrentUser;
+            Text = $"Online Game Store ({CurrentUser.Username})";
 
             loginButton.Hide();
             logoutButton.Show();
@@ -66,6 +69,8 @@ namespace MagcalasCullen_CSCI366_GroupProject
                 return;
 
             CurrentUser = null;
+            Text = $"Online Game Store";
+
             loginButton.Show();
             logoutButton.Hide();
         }
