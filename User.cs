@@ -11,14 +11,14 @@ namespace DatabaseApp
     {
         public string Username { get; set; }
         public int UserID { get; set; }
-        public int[] OwnedGames { get; set; }
+        public Dictionary<int, Game> OwnedGames { get; set; }
         public bool IsAdmin { get => UserID == -1; }
 
-        public User(int userID, string username, int[] ownedGames)
+        public User(int userID, string username, Dictionary<int, Game> ownedGames)
         {
             UserID = userID;
             Username = username;
-            OwnedGames = ownedGames;
+            OwnedGames = new Dictionary<int, Game>();
         }
     }
 }

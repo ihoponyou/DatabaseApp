@@ -30,12 +30,15 @@ namespace MagcalasCullen_CSCI366_GroupProject
         {
             if (CurrentUser == null)
             {
+                MessageBox.Show("Please log in to access your Library.", "Cannot access Library", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             activePage = library1;
             store1.Hide();
             library1.Show();
+
+            library1.RefreshPage();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -73,6 +76,10 @@ namespace MagcalasCullen_CSCI366_GroupProject
 
             loginButton.Show();
             logoutButton.Hide();
+            library1.Hide();
+
+            activePage = store1;
+            store1.Show();
         }
     }
 }

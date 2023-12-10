@@ -9,7 +9,7 @@ using Npgsql;
 
 namespace DatabaseApp
 {
-    internal class DatabaseManager
+    public class DatabaseManager
     {
         private string connString = "Host=localhost;Username=postgres;Password=s$cret;Database=366-final";
 

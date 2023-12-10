@@ -51,7 +51,7 @@ namespace DatabaseApp
             // hardcoded admin login
             if (username.Equals("admin") && password.Equals("Password"))
             {
-                CurrentUser = new User(-1, username, new int[0]);
+                CurrentUser = new User(-1, username, new Dictionary<int, Game>());
                 return;
             }
 
@@ -65,7 +65,8 @@ namespace DatabaseApp
 
             while (results.Read())
             {
-                CurrentUser = new User((int)results[0], username, new int[0]);
+                CurrentUser = new User((int)results[0], username, new Dictionary<int, Game>());
+                CurrentUser.OwnedGames = Game.GetOwnedGames(databaseManager, CurrentUser.UserID);
             }
 
             results.Close();

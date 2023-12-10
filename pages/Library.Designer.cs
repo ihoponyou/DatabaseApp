@@ -31,9 +31,9 @@
             splitContainer1 = new SplitContainer();
             flowLayoutPanel1 = new FlowLayoutPanel();
             descriptionLabel = new Label();
-            label2 = new Label();
-            label1 = new Label();
-            gameTitleLabel = new Label();
+            publisherLabel = new Label();
+            releaseDateLabel = new Label();
+            titleLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -53,9 +53,9 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(descriptionLabel);
-            splitContainer1.Panel2.Controls.Add(label2);
-            splitContainer1.Panel2.Controls.Add(label1);
-            splitContainer1.Panel2.Controls.Add(gameTitleLabel);
+            splitContainer1.Panel2.Controls.Add(publisherLabel);
+            splitContainer1.Panel2.Controls.Add(releaseDateLabel);
+            splitContainer1.Panel2.Controls.Add(titleLabel);
             splitContainer1.Panel2.Padding = new Padding(10);
             splitContainer1.Size = new Size(778, 397);
             splitContainer1.SplitterDistance = 201;
@@ -73,45 +73,42 @@
             // 
             // descriptionLabel
             // 
-            descriptionLabel.AutoSize = true;
             descriptionLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             descriptionLabel.Location = new Point(25, 151);
             descriptionLabel.Margin = new Padding(6);
             descriptionLabel.Name = "descriptionLabel";
-            descriptionLabel.Size = new Size(52, 21);
+            descriptionLabel.Size = new Size(513, 214);
             descriptionLabel.TabIndex = 3;
             descriptionLabel.Text = "label3";
             // 
-            // label2
+            // publisherLabel
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(25, 127);
-            label2.Margin = new Padding(3);
-            label2.Name = "label2";
-            label2.Size = new Size(162, 15);
-            label2.TabIndex = 2;
-            label2.Text = "PUBLISHER: [publisher name]";
+            publisherLabel.Location = new Point(25, 127);
+            publisherLabel.Margin = new Padding(3);
+            publisherLabel.Name = "publisherLabel";
+            publisherLabel.Size = new Size(162, 15);
+            publisherLabel.TabIndex = 2;
+            publisherLabel.Text = "PUBLISHER: [publisher name]";
             // 
-            // label1
+            // releaseDateLabel
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(25, 106);
-            label1.Margin = new Padding(3);
-            label1.Name = "label1";
-            label1.Size = new Size(166, 15);
-            label1.TabIndex = 1;
-            label1.Text = "RELEASE DATE: [mm/dd/yyyy]";
+            releaseDateLabel.Location = new Point(25, 106);
+            releaseDateLabel.Margin = new Padding(3);
+            releaseDateLabel.Name = "releaseDateLabel";
+            releaseDateLabel.Size = new Size(166, 15);
+            releaseDateLabel.TabIndex = 1;
+            releaseDateLabel.Text = "RELEASE DATE: [mm/dd/yyyy]";
             // 
-            // gameTitleLabel
+            // titleLabel
             // 
-            gameTitleLabel.AutoSize = true;
-            gameTitleLabel.Font = new Font("Segoe UI", 27.75F, FontStyle.Regular, GraphicsUnit.Point);
-            gameTitleLabel.Location = new Point(25, 50);
-            gameTitleLabel.Margin = new Padding(3);
-            gameTitleLabel.Name = "gameTitleLabel";
-            gameTitleLabel.Size = new Size(335, 50);
-            gameTitleLabel.TabIndex = 0;
-            gameTitleLabel.Text = "[GAME TITLE HERE]";
+            titleLabel.AutoSize = true;
+            titleLabel.Font = new Font("Segoe UI", 27.75F, FontStyle.Regular, GraphicsUnit.Point);
+            titleLabel.Location = new Point(25, 50);
+            titleLabel.Margin = new Padding(3);
+            titleLabel.Name = "titleLabel";
+            titleLabel.Size = new Size(335, 50);
+            titleLabel.TabIndex = 0;
+            titleLabel.Text = "[GAME TITLE HERE]";
             // 
             // Library
             // 
@@ -134,9 +131,9 @@
 
         private SplitContainer splitContainer1;
         private FlowLayoutPanel flowLayoutPanel1;
-        private Label gameTitleLabel;
-        private Label label2;
-        private Label label1;
+        private Label titleLabel;
+        private Label publisherLabel;
+        private Label releaseDateLabel;
         private Label descriptionLabel;
     }
 }
