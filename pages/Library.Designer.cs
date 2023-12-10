@@ -30,6 +30,7 @@
         {
             splitContainer1 = new SplitContainer();
             flowLayoutPanel1 = new FlowLayoutPanel();
+            tagLabel = new Label();
             descriptionLabel = new Label();
             publisherLabel = new Label();
             releaseDateLabel = new Label();
@@ -52,6 +53,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            splitContainer1.Panel2.Controls.Add(tagLabel);
             splitContainer1.Panel2.Controls.Add(descriptionLabel);
             splitContainer1.Panel2.Controls.Add(publisherLabel);
             splitContainer1.Panel2.Controls.Add(releaseDateLabel);
@@ -71,19 +73,28 @@
             flowLayoutPanel1.Size = new Size(201, 397);
             flowLayoutPanel1.TabIndex = 0;
             // 
+            // tagLabel
+            // 
+            tagLabel.Location = new Point(25, 109);
+            tagLabel.Margin = new Padding(3);
+            tagLabel.Name = "tagLabel";
+            tagLabel.Size = new Size(162, 15);
+            tagLabel.TabIndex = 4;
+            tagLabel.Text = "[tags]";
+            // 
             // descriptionLabel
             // 
             descriptionLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            descriptionLabel.Location = new Point(25, 151);
+            descriptionLabel.Location = new Point(25, 175);
             descriptionLabel.Margin = new Padding(6);
             descriptionLabel.Name = "descriptionLabel";
-            descriptionLabel.Size = new Size(513, 214);
+            descriptionLabel.Size = new Size(513, 206);
             descriptionLabel.TabIndex = 3;
             descriptionLabel.Text = "label3";
             // 
             // publisherLabel
             // 
-            publisherLabel.Location = new Point(25, 127);
+            publisherLabel.Location = new Point(25, 151);
             publisherLabel.Margin = new Padding(3);
             publisherLabel.Name = "publisherLabel";
             publisherLabel.Size = new Size(162, 15);
@@ -92,7 +103,7 @@
             // 
             // releaseDateLabel
             // 
-            releaseDateLabel.Location = new Point(25, 106);
+            releaseDateLabel.Location = new Point(25, 130);
             releaseDateLabel.Margin = new Padding(3);
             releaseDateLabel.Name = "releaseDateLabel";
             releaseDateLabel.Size = new Size(166, 15);
@@ -104,7 +115,7 @@
             titleLabel.AutoSize = true;
             titleLabel.Font = new Font("Segoe UI", 27.75F, FontStyle.Regular, GraphicsUnit.Point);
             titleLabel.Location = new Point(25, 50);
-            titleLabel.Margin = new Padding(3);
+            titleLabel.Margin = new Padding(6);
             titleLabel.Name = "titleLabel";
             titleLabel.Size = new Size(335, 50);
             titleLabel.TabIndex = 0;
@@ -135,5 +146,6 @@
         private Label publisherLabel;
         private Label releaseDateLabel;
         private Label descriptionLabel;
+        private Label tagLabel;
     }
 }

@@ -22,41 +22,21 @@ namespace DatabaseApp.pages
             InitializeComponent();
         }
 
-        //private void gameButton_Clicked(object sender, EventArgs e)
-        //{
-
-        //}
-
-        //public class GameSelectedEventArgs : EventArgs
-        //{
-        //    public Game AssociatedGame { get; set; }
-        //}
-
-        //protected void OnGameSelected(GameSelectedEventArgs args)
-        //{
-        //    EventHandler<GameSelectedEventArgs> handler = GameSelected;
-        //    if (handler != null)
-        //    {
-        //        handler(this, args);
-        //    }
-        //}
-
-        //public event EventHandler<GameSelectedEventArgs> GameSelected;
-
-        //private void library_GameSelected(object sender, GameSelectedEventArgs args)
-        //{
-        //    gameTitleLabel.Text = args.AssociatedGame.Title;
-        //}
-
-        //private void gameButton_Clicked()
-        //{
-
-        //}
-
         private void DisplayGameInfo(Game game)
         {
             titleLabel.Text = game.Title;
-            releaseDateLabel.Text = game.ReleaseDate;
+            
+            releaseDateLabel.Text = $"RELEASED: {game.ReleaseDate}";
+            publisherLabel.Text = $"PUBLISHER: {game.Publisher.Name}";
+
+            string tagText = "";
+            foreach (Tag tag in game.Tags.Values)
+            {
+                bool last = tag.Equals(game.Tags.Values.Last());
+                tagText += tag.Name + ((last) ? "" : ", ");
+            }
+            tagLabel.Text = tagText;
+
             descriptionLabel.Text = game.Description;
         }
 
