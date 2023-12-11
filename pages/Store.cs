@@ -16,6 +16,8 @@ namespace DatabaseApp.pages
 
         // int is associated game id
         private Dictionary<int, GamePanel> inventory = new Dictionary<int, GamePanel>();
+        // int = review id
+        private Dictionary<int, ReviewPanel> currentReviews = new Dictionary<int, ReviewPanel>();
 
         private struct GamePanel
         {
@@ -48,6 +50,35 @@ namespace DatabaseApp.pages
             }
         }
 
+        private struct ReviewPanel
+        {
+            public Review AssociatedReview { get; set; }
+            public Panel Panel { get; set; }
+            public Label AuthorLabel { get; set; }
+            public Label ContentLabel { get; set; }
+
+            public ReviewPanel(Review review)
+            {
+                AssociatedReview = review;
+
+                Panel = new Panel();
+                Panel.Height = 90;
+                Panel.Width = 150;
+                Panel.BackColor = SystemColors.Window;
+
+                AuthorLabel = new Label();
+                AuthorLabel.Parent = Panel;
+                AuthorLabel.Text = review.Author;
+
+                ContentLabel = new Label();
+                ContentLabel.Parent = Panel;
+                ContentLabel.Location = new Point(0, 23);
+                ContentLabel.AutoSize = false;
+                ContentLabel.Size = new Size(140, 67);
+                ContentLabel.Text = review.Content;
+            }
+        }
+
         public Store()
         {
             Title = "Store";
@@ -63,14 +94,57 @@ namespace DatabaseApp.pages
                 $"WHERE game_id = {gameID}";
             var reviews = mainForm.dbm.Query(query);
 
-            reviewListLayout.Controls.Clear();
+            reviewList.Controls.Clear();
 
             if (!reviews.HasRows)
             {
                 Label label = new Label();
                 label.Text = "No reviews found.";
                 label.Width = 150;
-                label.Parent = reviewListLayout;
+                label.Parent = reviewList;
+                return;
+            }
+
+            while (reviews.Read())
+            {
+                int reviewID = (int)reviews[0];
+
+                Review review = new Review(reviewID, reviews[1].ToString(), reviews[2].ToString(), (bool)reviews[3], reviews[4].ToString());
+
+                ReviewPanel reviewPanel = new ReviewPanel(review);
+                reviewPanel.Panel.Parent = reviewList;
+            }
+        }
+
+        private void LoadGames(DatabaseManager dbm)
+        {
+            string condition = $"WHERE game_price < CAST({priceTrackBar.Value} AS MONEY)";
+            string order = (ascendingPrice) ? "ASC" : "DESC";
+            string query = $"SELECT * FROM game {condition} ORDER BY game_price {order}";
+            var results = dbm.Query(query);
+
+            storeList.Controls.Clear();
+            inventory.Clear();
+
+            if (!results.HasRows)
+                throw new Exception("No games found");
+
+            while (results.Read())
+            {
+                int gameID = (int)results[0];
+                Publisher publisher = Game.GetPublisherFromID(dbm, gameID);
+                Dictionary<int, Tag> tags = Game.GetTagsFromID(dbm, gameID);
+
+                // order is wack because im dumb
+                Game currentGame = new Game((int)results[0], results[2].ToString(), results[3].ToString(),
+                    results[4].ToString(), (decimal)results[5], results[6].ToString(),
+                    publisher, tags);
+
+                GamePanel gamePanel = new GamePanel(currentGame);
+                gamePanel.Panel.Parent = storeList;
+                gamePanel.TitleLabel.Click += (sender, e) => DisplayReviews(gameID);
+
+                inventory.Add(gameID, gamePanel);
             }
         }
 
@@ -83,35 +157,14 @@ namespace DatabaseApp.pages
             ascendingPrice = true;
             priceOrderButton.Text = UP_ARROW;
 
-            priceTrackBar.Value = 0;
-            priceLabel.Text = "Free";
+            priceTrackBar.Value = 20;
+            priceLabel.Text = $"Under ${priceTrackBar.Value}";
 
             titleSearchTextBox.Text = "";
 
-            storeListLayout.Controls.Clear();
+            storeList.Controls.Clear();
             // load all games
-            var results = mainForm.dbm.Query("SELECT * FROM game");
-
-            if (!results.HasRows)
-                throw new Exception("No games found");
-
-            while (results.Read())
-            {
-                int gameID = (int)results[0];
-                Publisher publisher = Game.GetPublisherFromID(mainForm.dbm, gameID);
-                Dictionary<int, Tag> tags = Game.GetTagsFromID(mainForm.dbm, gameID);
-
-                // order is wack because im dumb
-                Game currentGame = new Game((int)results[0], results[2].ToString(), results[3].ToString(),
-                    results[4].ToString(), (decimal)results[5], results[6].ToString(),
-                    publisher, tags);
-
-                GamePanel gamePanel = new GamePanel(currentGame);
-                gamePanel.Panel.Parent = storeListLayout;
-                gamePanel.TitleLabel.Click += (sender, e) => DisplayReviews(gameID);
-
-                inventory.Add(gameID, gamePanel);
-            }
+            LoadGames(mainForm.dbm);
         }
 
         private void Store_Load(object sender, EventArgs e)
@@ -121,27 +174,40 @@ namespace DatabaseApp.pages
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-
-        }
-
-        private void priceTrackBar_MouseCaptureChanged(object sender, EventArgs e)
-        {
             if (priceTrackBar.Value > 0)
                 priceLabel.Text = $"Under ${priceTrackBar.Value}";
             else
                 priceLabel.Text = "Free";
         }
 
+        private void priceTrackBar_MouseCaptureChanged(object sender, EventArgs e)
+        {
+            Main mainForm = Parent as Main;
+
+            // reload games
+            LoadGames(mainForm.dbm);
+        }
+
         private void reviewOrderButton_Click(object sender, EventArgs e)
         {
+            Main mainForm = Parent as Main;
+
             ascendingReviews = !ascendingReviews;
             reviewOrderButton.Text = (ascendingReviews) ? UP_ARROW : DOWN_ARROW;
+
+            // reload games
+            LoadGames(mainForm.dbm);
         }
 
         private void priceOrderButton_Click(object sender, EventArgs e)
         {
+            Main mainForm = Parent as Main;
+
             ascendingPrice = !ascendingPrice;
             priceOrderButton.Text = (ascendingPrice) ? UP_ARROW : DOWN_ARROW;
+
+            // reload games
+            LoadGames(mainForm.dbm);
         }
     }
 }

@@ -14,6 +14,7 @@ namespace DatabaseApp
         public string IconLink { get; set; }
         public Publisher Publisher { get; init; }
         public Dictionary<int, Tag> Tags { get; set; }
+        public Dictionary<int, Review>? Reviews { get; set; }
 
         public Game(int gameID, string title, string description, string releaseDate, decimal price, string iconLink, Publisher publisher, Dictionary<int, Tag> tags)
         {

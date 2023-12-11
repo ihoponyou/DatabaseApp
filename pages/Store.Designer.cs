@@ -33,13 +33,14 @@
             label1 = new Label();
             priceTrackBar = new TrackBar();
             priceLabel = new Label();
-            storeListLayout = new FlowLayoutPanel();
-            reviewListLayout = new FlowLayoutPanel();
+            storeList = new FlowLayoutPanel();
+            reviewList = new FlowLayoutPanel();
             label2 = new Label();
             reviewOrderButton = new Button();
             label3 = new Label();
             label4 = new Label();
             priceOrderButton = new Button();
+            label5 = new Label();
             ((System.ComponentModel.ISupportInitialize)priceTrackBar).BeginInit();
             SuspendLayout();
             // 
@@ -74,60 +75,63 @@
             // 
             // priceTrackBar
             // 
-            priceTrackBar.Location = new Point(410, 81);
+            priceTrackBar.Location = new Point(410, 86);
             priceTrackBar.Margin = new Padding(3, 3, 3, 9);
-            priceTrackBar.Maximum = 120;
+            priceTrackBar.Maximum = 20;
             priceTrackBar.Name = "priceTrackBar";
             priceTrackBar.Size = new Size(173, 45);
             priceTrackBar.SmallChange = 5;
             priceTrackBar.TabIndex = 4;
             priceTrackBar.TickFrequency = 5;
+            priceTrackBar.Value = 20;
             priceTrackBar.Scroll += trackBar1_Scroll;
             priceTrackBar.MouseCaptureChanged += priceTrackBar_MouseCaptureChanged;
             // 
             // priceLabel
             // 
-            priceLabel.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            priceLabel.Location = new Point(410, 116);
+            priceLabel.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            priceLabel.Location = new Point(410, 118);
             priceLabel.Margin = new Padding(3, 3, 3, 9);
             priceLabel.Name = "priceLabel";
             priceLabel.Size = new Size(173, 20);
             priceLabel.TabIndex = 5;
-            priceLabel.Text = "Free";
+            priceLabel.Text = "Under $20";
             priceLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // storeListLayout
+            // storeList
             // 
-            storeListLayout.BackColor = SystemColors.ControlLight;
-            storeListLayout.Location = new Point(161, 45);
-            storeListLayout.Name = "storeListLayout";
-            storeListLayout.Size = new Size(243, 332);
-            storeListLayout.TabIndex = 0;
+            storeList.BackColor = SystemColors.ControlLight;
+            storeList.Location = new Point(161, 45);
+            storeList.Name = "storeList";
+            storeList.Size = new Size(243, 332);
+            storeList.TabIndex = 0;
             // 
-            // reviewListLayout
+            // reviewList
             // 
-            reviewListLayout.AutoScroll = true;
-            reviewListLayout.BackColor = SystemColors.ControlLight;
-            reviewListLayout.Location = new Point(410, 171);
-            reviewListLayout.Name = "reviewListLayout";
-            reviewListLayout.Padding = new Padding(0, 3, 0, 0);
-            reviewListLayout.Size = new Size(173, 206);
-            reviewListLayout.TabIndex = 1;
-            reviewListLayout.WrapContents = false;
+            reviewList.AutoScroll = true;
+            reviewList.BackColor = SystemColors.ControlLight;
+            reviewList.FlowDirection = FlowDirection.TopDown;
+            reviewList.Location = new Point(410, 195);
+            reviewList.Name = "reviewList";
+            reviewList.Padding = new Padding(0, 3, 0, 0);
+            reviewList.Size = new Size(173, 182);
+            reviewList.TabIndex = 1;
+            reviewList.WrapContents = false;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(410, 153);
+            label2.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.Location = new Point(410, 168);
             label2.Name = "label2";
-            label2.Size = new Size(49, 15);
+            label2.Size = new Size(57, 17);
             label2.TabIndex = 6;
             label2.Text = "Reviews";
             // 
             // reviewOrderButton
             // 
             reviewOrderButton.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            reviewOrderButton.Location = new Point(310, 17);
+            reviewOrderButton.Location = new Point(560, 166);
             reviewOrderButton.Name = "reviewOrderButton";
             reviewOrderButton.Size = new Size(23, 23);
             reviewOrderButton.TabIndex = 7;
@@ -138,11 +142,11 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(252, 21);
+            label3.Location = new Point(496, 170);
             label3.Name = "label3";
-            label3.Size = new Size(52, 15);
+            label3.Size = new Size(58, 15);
             label3.TabIndex = 8;
-            label3.Text = "Reviews:";
+            label3.Text = "Positivity:";
             // 
             // label4
             // 
@@ -163,23 +167,34 @@
             priceOrderButton.UseVisualStyleBackColor = true;
             priceOrderButton.Click += priceOrderButton_Click;
             // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label5.Location = new Point(161, 19);
+            label5.Name = "label5";
+            label5.Size = new Size(49, 17);
+            label5.TabIndex = 11;
+            label5.Text = "Games";
+            // 
             // Store
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
+            Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(priceOrderButton);
             Controls.Add(label3);
             Controls.Add(reviewOrderButton);
             Controls.Add(label2);
-            Controls.Add(reviewListLayout);
+            Controls.Add(reviewList);
             Controls.Add(priceLabel);
             Controls.Add(priceTrackBar);
             Controls.Add(label1);
             Controls.Add(tagComboBox);
             Controls.Add(titleSearchTextBox);
-            Controls.Add(storeListLayout);
+            Controls.Add(storeList);
             ForeColor = SystemColors.ControlText;
             Name = "Store";
             Size = new Size(778, 397);
@@ -195,12 +210,13 @@
         private Label label1;
         private TrackBar priceTrackBar;
         private Label priceLabel;
-        private FlowLayoutPanel storeListLayout;
-        private FlowLayoutPanel reviewListLayout;
+        private FlowLayoutPanel storeList;
+        private FlowLayoutPanel reviewList;
         private Label label2;
         private Button reviewOrderButton;
         private Label label3;
         private Label label4;
         private Button priceOrderButton;
+        private Label label5;
     }
 }
