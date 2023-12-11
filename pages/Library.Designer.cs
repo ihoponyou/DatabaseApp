@@ -29,7 +29,9 @@
         private void InitializeComponent()
         {
             splitContainer1 = new SplitContainer();
-            flowLayoutPanel1 = new FlowLayoutPanel();
+            tagCombo = new ComboBox();
+            label1 = new Label();
+            gameListLayout = new FlowLayoutPanel();
             tagLabel = new Label();
             descriptionLabel = new Label();
             publisherLabel = new Label();
@@ -49,7 +51,9 @@
             // 
             // splitContainer1.Panel1
             // 
-            splitContainer1.Panel1.Controls.Add(flowLayoutPanel1);
+            splitContainer1.Panel1.Controls.Add(tagCombo);
+            splitContainer1.Panel1.Controls.Add(label1);
+            splitContainer1.Panel1.Controls.Add(gameListLayout);
             // 
             // splitContainer1.Panel2
             // 
@@ -63,22 +67,42 @@
             splitContainer1.SplitterDistance = 201;
             splitContainer1.TabIndex = 0;
             // 
-            // flowLayoutPanel1
+            // tagCombo
             // 
-            flowLayoutPanel1.BackColor = SystemColors.WindowFrame;
-            flowLayoutPanel1.Dock = DockStyle.Fill;
-            flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel1.Location = new Point(0, 0);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(201, 397);
-            flowLayoutPanel1.TabIndex = 0;
+            tagCombo.DisplayMember = "Name";
+            tagCombo.DropDownStyle = ComboBoxStyle.DropDownList;
+            tagCombo.FormattingEnabled = true;
+            tagCombo.Location = new Point(40, 6);
+            tagCombo.Name = "tagCombo";
+            tagCombo.Size = new Size(158, 23);
+            tagCombo.TabIndex = 2;
+            tagCombo.ValueMember = "Name";
+            tagCombo.SelectedIndexChanged += tagCombo_SelectedIndexChanged;
+            // 
+            // label1
+            // 
+            label1.Location = new Point(6, 9);
+            label1.Margin = new Padding(6);
+            label1.Name = "label1";
+            label1.Size = new Size(51, 15);
+            label1.TabIndex = 1;
+            label1.Text = "Tag:";
+            // 
+            // gameListLayout
+            // 
+            gameListLayout.BackColor = SystemColors.ControlLight;
+            gameListLayout.FlowDirection = FlowDirection.TopDown;
+            gameListLayout.Location = new Point(0, 33);
+            gameListLayout.Name = "gameListLayout";
+            gameListLayout.Size = new Size(201, 364);
+            gameListLayout.TabIndex = 0;
             // 
             // tagLabel
             // 
             tagLabel.Location = new Point(25, 109);
             tagLabel.Margin = new Padding(3);
             tagLabel.Name = "tagLabel";
-            tagLabel.Size = new Size(162, 15);
+            tagLabel.Size = new Size(180, 15);
             tagLabel.TabIndex = 4;
             tagLabel.Text = "[tags]";
             // 
@@ -141,11 +165,13 @@
         #endregion
 
         private SplitContainer splitContainer1;
-        private FlowLayoutPanel flowLayoutPanel1;
+        private FlowLayoutPanel gameListLayout;
         private Label titleLabel;
         private Label publisherLabel;
         private Label releaseDateLabel;
         private Label descriptionLabel;
         private Label tagLabel;
+        private Label label1;
+        private ComboBox tagCombo;
     }
 }

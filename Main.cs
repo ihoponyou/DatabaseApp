@@ -8,7 +8,7 @@ namespace MagcalasCullen_CSCI366_GroupProject
     public partial class Main : Form
     {
         public DatabaseApp.User? CurrentUser { get; private set; }
-        private DatabaseManager dbm;
+        internal DatabaseManager dbm;
         private UserControl? activePage;
 
         public Main()
