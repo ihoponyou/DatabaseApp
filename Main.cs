@@ -23,6 +23,7 @@ namespace MagcalasCullen_CSCI366_GroupProject
             activePage = store1;
             library1.Hide();
 
+            store1.RefreshPage();
             store1.Show();
         }
 
@@ -36,17 +37,18 @@ namespace MagcalasCullen_CSCI366_GroupProject
 
             activePage = library1;
             store1.Hide();
-            library1.Show();
 
             library1.RefreshPage();
+            library1.Show();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            activePage = store1;
             logoutButton.Hide();
             library1.Hide();
 
-            activePage = store1;
+            store1.RefreshPage();
             store1.Show();
         }
 

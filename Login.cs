@@ -66,7 +66,7 @@ namespace DatabaseApp
             while (results.Read())
             {
                 CurrentUser = new User((int)results[0], username, new Dictionary<int, Game>());
-                CurrentUser.OwnedGames = Game.GetOwnedGames(databaseManager, CurrentUser.UserID);
+                CurrentUser.OwnedGames = User.GetOwnedGames(databaseManager, CurrentUser.UserID);
             }
 
             results.Close();
