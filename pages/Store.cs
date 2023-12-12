@@ -119,9 +119,10 @@ namespace DatabaseApp.pages
 
         private void LoadGames(DatabaseManager dbm)
         {
-            string condition = $"WHERE game_price < CAST({priceTrackBar.Value} AS MONEY)";
+            string searchCondition = $"LOWER(game_title) LIKE '{titleSearchTextBox.Text}%'";
+            string priceCondition = $"game_price < CAST({priceTrackBar.Value} AS MONEY)";
             string order = (ascendingPrice) ? "ASC" : "DESC";
-            string query = $"SELECT * FROM game {condition} ORDER BY game_price {order}";
+            string query = $"SELECT * FROM game WHERE {searchCondition} AND {priceCondition} ORDER BY game_price {order}";
             var results = dbm.Query(query);
 
             storeList.Controls.Clear();
@@ -213,15 +214,18 @@ namespace DatabaseApp.pages
 
         private void titleSearchTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // search by title
+            if (e.KeyChar != (char) Keys.Enter)
+                return;
 
+            Main mainForm = Parent as Main;
+            // reload games
+            LoadGames(mainForm.dbm);
         }
 
         private void mostPopularGameButton_Click(object sender, EventArgs e)
         {
             Main mainForm = Parent as Main;
 
-            // get max number of reviews
             string query = "SELECT game_title, most_popular_game.count FROM game " +
                 "JOIN (SELECT * FROM (SELECT game_id, COUNT(game_id) FROM review GROUP BY game_id) reviews_per_game ORDER BY reviews_per_game DESC LIMIT 1) most_popular_game " +
                 "ON game.game_id = most_popular_game.game_id;";
@@ -229,6 +233,30 @@ namespace DatabaseApp.pages
 
             result.Read();
             MessageBox.Show($"{result[0]} ({result[1]} reviews)", "And the winner is...", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            result.Close();
+        }
+
+        private void oldestUserButton_Click(object sender, EventArgs e)
+        {
+            Main mainForm = Parent as Main;
+
+            string query = "SELECT customer_username, join_date FROM customer ORDER BY join_date ASC LIMIT 1;";
+            var result = mainForm.dbm.Query(query);
+
+            result.Read();
+            MessageBox.Show($"{result[0]} (Joined {result[1]})", "And the winner is...", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            result.Close();
+        }
+
+        private void newestGameButton_Click(object sender, EventArgs e)
+        {
+            Main mainForm = Parent as Main;
+
+            string query = "SELECT game_title, release_date FROM game ORDER BY release_date DESC LIMIT 1;";
+            var result = mainForm.dbm.Query(query);
+
+            result.Read();
+            MessageBox.Show($"{result[0]} (Released {result[1]})", "And the winner is...", MessageBoxButtons.OK, MessageBoxIcon.Information);
             result.Close();
         }
     }
