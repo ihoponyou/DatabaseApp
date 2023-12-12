@@ -13,7 +13,7 @@ VALUES
 	1,
  	'Semi-Death',
  	'A blend of action and adventure with award-winning technology that creates a frighteningly realistic world where players must think to survive.',
- 	NOW(),
+ 	'2023-11-27',
  	9.99,
 	''
 ),
@@ -21,7 +21,7 @@ VALUES
 	1,
 	'Anti-Strike',
 	'An elite competitive experience shaped by millions of players from across the globe.',
-	NOW(),
+	'2023-11-28',
 	0,
 	''
 ),
@@ -29,7 +29,7 @@ VALUES
 	2,
 	'Jerry''s Mod',
 	'Jerry''s Mod is a physics sandbox with no predefined aims or goals. We give you the tools and leave you to play.',
-	NOW(),
+	'2023-11-30',
 	9.99,
 	''
 ),
@@ -37,7 +37,7 @@ VALUES
 	3,
 	'Terrarium',
 	'Dig, fight, explore, build! Everything is impossible in this action-packed adventure game.',
-	NOW(),
+	'2023-11-28',
 	14.99,
 	''
 );
@@ -58,8 +58,8 @@ VALUES
 
 INSERT INTO Customer (customer_username, customer_password, join_date)
 VALUES
-('gameplayer123', 'gamesgamesgames', NOW()),
-('haterofgames', 'ihategames000', NOW());
+('gameplayer123', 'gamesgamesgames', '2023-12-01'),
+('haterofgames', 'ihategames000', '2023-11-28');
 
 INSERT INTO OwnedBy (customer_id, game_id)
 VALUES

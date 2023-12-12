@@ -11,7 +11,7 @@ namespace DatabaseApp
 {
     public class DatabaseManager
     {
-        private string connString = "Host=localhost;Username=postgres;Password=s$cret;Database=366-final";
+        private string connString = "Host=localhost;Username=noah;Password=noah123;Database=366-final";
 
         public DatabaseManager()
         {
