@@ -88,10 +88,11 @@ namespace DatabaseApp.pages
         public void DisplayReviews(int gameID)
         {
             Main mainForm = Parent as Main;
-
+            string order = (ascendingReviews) ? "ASC" : "DESC";
             string query = "SELECT review.review_id, customer_username, review_text, review_is_positive, post_date FROM review " +
                 "JOIN customer ON customer.customer_id = review.author_id " +
-                $"WHERE game_id = {gameID}";
+                $"WHERE game_id = {gameID} " +
+                $"ORDER BY review_is_positive {order}";
             var reviews = mainForm.dbm.Query(query);
 
             reviewList.Controls.Clear();
@@ -196,7 +197,7 @@ namespace DatabaseApp.pages
             reviewOrderButton.Text = (ascendingReviews) ? UP_ARROW : DOWN_ARROW;
 
             // reload games
-            LoadGames(mainForm.dbm);
+
         }
 
         private void priceOrderButton_Click(object sender, EventArgs e)
@@ -208,6 +209,27 @@ namespace DatabaseApp.pages
 
             // reload games
             LoadGames(mainForm.dbm);
+        }
+
+        private void titleSearchTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // search by title
+
+        }
+
+        private void mostPopularGameButton_Click(object sender, EventArgs e)
+        {
+            Main mainForm = Parent as Main;
+
+            // get max number of reviews
+            string query = "SELECT game_title, most_popular_game.count FROM game " +
+                "JOIN (SELECT * FROM (SELECT game_id, COUNT(game_id) FROM review GROUP BY game_id) reviews_per_game ORDER BY reviews_per_game DESC LIMIT 1) most_popular_game " +
+                "ON game.game_id = most_popular_game.game_id;";
+            var result = mainForm.dbm.Query(query);
+
+            result.Read();
+            MessageBox.Show($"{result[0]} ({result[1]} reviews)", "And the winner is...", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            result.Close();
         }
     }
 }

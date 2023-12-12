@@ -41,6 +41,9 @@
             label4 = new Label();
             priceOrderButton = new Button();
             label5 = new Label();
+            mostPopularGameButton = new Button();
+            button2 = new Button();
+            button3 = new Button();
             ((System.ComponentModel.ISupportInitialize)priceTrackBar).BeginInit();
             SuspendLayout();
             // 
@@ -52,6 +55,7 @@
             titleSearchTextBox.PlaceholderText = "Search by title...";
             titleSearchTextBox.Size = new Size(173, 23);
             titleSearchTextBox.TabIndex = 1;
+            titleSearchTextBox.KeyPress += titleSearchTextBox_KeyPress;
             // 
             // tagComboBox
             // 
@@ -177,11 +181,42 @@
             label5.TabIndex = 11;
             label5.Text = "Games";
             // 
+            // mostPopularGameButton
+            // 
+            mostPopularGameButton.Location = new Point(14, 45);
+            mostPopularGameButton.Name = "mostPopularGameButton";
+            mostPopularGameButton.Size = new Size(132, 23);
+            mostPopularGameButton.TabIndex = 12;
+            mostPopularGameButton.Text = "Most Discussed Game";
+            mostPopularGameButton.UseVisualStyleBackColor = true;
+            mostPopularGameButton.Click += mostPopularGameButton_Click;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(14, 74);
+            button2.Name = "button2";
+            button2.Size = new Size(132, 23);
+            button2.TabIndex = 13;
+            button2.Text = "Oldest User";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(14, 103);
+            button3.Name = "button3";
+            button3.Size = new Size(132, 23);
+            button3.TabIndex = 14;
+            button3.Text = "Newest Game";
+            button3.UseVisualStyleBackColor = true;
+            // 
             // Store
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
+            Controls.Add(button3);
+            Controls.Add(button2);
+            Controls.Add(mostPopularGameButton);
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(priceOrderButton);
@@ -218,5 +253,8 @@
         private Label label4;
         private Button priceOrderButton;
         private Label label5;
+        private Button mostPopularGameButton;
+        private Button button2;
+        private Button button3;
     }
 }
