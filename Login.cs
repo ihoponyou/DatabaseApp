@@ -100,7 +100,27 @@ namespace DatabaseApp
                 errorLabel.Text = ex.Message;
             }
         }
+        private void createAccountBtn_Click(object sender, EventArgs e)
+        {
+            Close();
+            CreateAccount(usernameTextBox.Text, passwordTextBox.Text);
+            loginButton_Click(sender, e);
+        }
 
+        private void CreateAccount(string username, string password)
+        {
+            bool bothAlphaNumeric = isAlphaNumeric(username) && isAlphaNumeric(password);
+            if (!bothAlphaNumeric)
+                throw new Exception("Username and password must be alphanumeric");
+
+            bool eitherEmpty = string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password);
+            if (eitherEmpty)
+                throw new Exception("Username and password fields cannot be blank");
+
+            databaseManager.Query(
+                $"INSERT INTO customer (customer_username, customer_password, join_date) VALUES ('{username}','{password}' ,'{DateTime.Now}');"
+                );
+        }
         private void Login_Load(object sender, EventArgs e)
         {
             errorLabel.Hide();

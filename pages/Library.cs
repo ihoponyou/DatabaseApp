@@ -14,6 +14,7 @@ namespace DatabaseApp.pages
 {
     public partial class Library : UserControl, IPage
     {
+        Game focusedGame;
         public string Title { get; }
         // int is the associated game's id
         private Dictionary<int, Button> gameButtons = new Dictionary<int, Button>();
@@ -31,7 +32,7 @@ namespace DatabaseApp.pages
             releaseDateLabel.Show();
             publisherLabel.Show();
             descriptionLabel.Show();
-
+            reviewBtn.Show();
             titleLabel.Text = game.Title;
 
             string tagText = "";
@@ -46,6 +47,7 @@ namespace DatabaseApp.pages
             publisherLabel.Text = $"PUBLISHER: {game.Publisher.Name}";
 
             descriptionLabel.Text = game.Description;
+            focusedGame = game;
         }
 
         private Button createGameButton(Game game)
@@ -83,13 +85,12 @@ namespace DatabaseApp.pages
             releaseDateLabel.Hide();
             publisherLabel.Hide();
             descriptionLabel.Hide();
-
+            reviewBtn.Hide();
             // clear current game list
             gameListLayout.Controls.Clear();
 
             // load all the games for "logged in" user
             gameButtons.Clear();
-
             tagCombo.Items.Clear();
             tagCombo.Items.Add(new TagItem(-1, "All"));
             tagCombo.SelectedItem = tagCombo.Items[0];
@@ -120,14 +121,19 @@ namespace DatabaseApp.pages
 
         }
 
+        private void reiviewBtn_Click(object sender, EventArgs e)
+        {
+            using ReviewForm createReviewForm = new ReviewForm(focusedGame.GameID, (Parent as Main).CurrentUser.UserID);
+            createReviewForm.ShowDialog();
+        }
         private void tagCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
             Main mainForm = Parent as Main;
 
-            TagItem selectedTag = (TagItem) tagCombo.SelectedItem;
+            TagItem selectedTag = (TagItem)tagCombo.SelectedItem;
             Debug.WriteLine(selectedTag.ID);
 
-            foreach(KeyValuePair<int, Button> keyValuePair in gameButtons)
+            foreach (KeyValuePair<int, Button> keyValuePair in gameButtons)
             {
                 // if all is selected
                 if (selectedTag.ID == -1)
