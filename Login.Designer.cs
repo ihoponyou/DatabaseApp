@@ -35,6 +35,7 @@
             cancelButton = new Button();
             loginButton = new Button();
             errorLabel = new Label();
+            createAccountBtn = new Button();
             SuspendLayout();
             // 
             // label1
@@ -43,7 +44,7 @@
             label1.Font = new Font("Arial", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             label1.Location = new Point(19, 15);
             label1.Name = "label1";
-            label1.Size = new Size(56, 14);
+            label1.Size = new Size(71, 16);
             label1.TabIndex = 0;
             label1.Text = "Username";
             // 
@@ -52,7 +53,7 @@
             usernameTextBox.Font = new Font("Arial", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             usernameTextBox.Location = new Point(80, 12);
             usernameTextBox.Name = "usernameTextBox";
-            usernameTextBox.Size = new Size(273, 20);
+            usernameTextBox.Size = new Size(273, 23);
             usernameTextBox.TabIndex = 1;
             // 
             // passwordTextBox
@@ -60,7 +61,7 @@
             passwordTextBox.Font = new Font("Arial", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             passwordTextBox.Location = new Point(80, 41);
             passwordTextBox.Name = "passwordTextBox";
-            passwordTextBox.Size = new Size(273, 20);
+            passwordTextBox.Size = new Size(273, 23);
             passwordTextBox.TabIndex = 3;
             passwordTextBox.UseSystemPasswordChar = true;
             // 
@@ -70,7 +71,7 @@
             label2.Font = new Font("Arial", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             label2.Location = new Point(19, 44);
             label2.Name = "label2";
-            label2.Size = new Size(57, 14);
+            label2.Size = new Size(68, 16);
             label2.TabIndex = 2;
             label2.Text = "Password";
             // 
@@ -104,15 +105,28 @@
             errorLabel.Location = new Point(80, 67);
             errorLabel.Margin = new Padding(3);
             errorLabel.Name = "errorLabel";
-            errorLabel.Size = new Size(42, 14);
+            errorLabel.Size = new Size(57, 16);
             errorLabel.TabIndex = 7;
             errorLabel.Text = "ERROR";
             // 
+            // createAccountBtn
+            // 
+            createAccountBtn.Location = new Point(215, 133);
+            createAccountBtn.Name = "createAccountBtn";
+            createAccountBtn.Size = new Size(138, 29);
+            createAccountBtn.TabIndex = 8;
+            createAccountBtn.Text = "Create Account";
+            createAccountBtn.UseVisualStyleBackColor = true;
+            createAccountBtn.Click += createAccountBtn_Click;
+            // 
             // Login
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AcceptButton = loginButton;
+            AutoScaleDimensions = new SizeF(8F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(374, 119);
+            CancelButton = cancelButton;
+            ClientSize = new Size(374, 184);
+            Controls.Add(createAccountBtn);
             Controls.Add(errorLabel);
             Controls.Add(loginButton);
             Controls.Add(cancelButton);
@@ -137,5 +151,6 @@
         private Button cancelButton;
         private Button loginButton;
         private Label errorLabel;
+        private Button createAccountBtn;
     }
 }
